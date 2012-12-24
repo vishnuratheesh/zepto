@@ -1,0 +1,8 @@
+#!/bin/sh
+src="${1:-dist/zepto.js}"
+min="${2:-dist/zepto.min.js}"
+
+# preserve comment on first line
+head -1 "$src" | grep '^/' > "$min"
+
+exec uglifyjs "$src" >> "$min"

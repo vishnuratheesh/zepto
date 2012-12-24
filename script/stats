@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+src=dist/zepto.js
+min=dist/zepto.min.js
+gzp=dist/zepto.min.gz
+
+fsize(){
+  stat -f%z "$1"
+}
+human(){
+  awk '{ printf "%.2f", $1 / 1024 }' <<<"$1"
+}
+
+size=$(fsize "$src")
+mins=$(fsize "$min")
+gzps=$(fsize "$gzp")
+
+factor=$(awk '{ printf "%.2f", $1 / $2 }' <<<"$size $gzps")
+
+echo "Original version: $(human $size) KiB"
+echo "Minified: $(human $mins) KiB"
+echo "Minified and gzipped: $(human $gzps) KiB, compression factor $factor"

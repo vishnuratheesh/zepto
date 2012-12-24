@@ -1,0 +1,5 @@
+#!/bin/sh
+src="${1:-dist/zepto.min.js}"
+gzp="${src/.js/.gz}"
+
+gzip -c --best "$src" > "$gzp"

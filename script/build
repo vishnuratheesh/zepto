@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+dest=${1:-dist/zepto.js}
+modules="polyfill zepto detect event ajax form fx"
+
+exec 1<> "$dest"
+
+echo "/* Zepto $(script/version) - $modules - zeptojs.com/license */"
+
+for module in $modules; do
+  file=src/${module}.js
+  sed -nE '/^[^/]/,$p' $file
+done
