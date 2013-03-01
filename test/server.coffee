@@ -5,9 +5,10 @@ app     = express()
 
 module.exports = app
 
-app.use express.static(__dirname + '/../')
-app.use express.static('node_modules/mocha')
-app.use express.static('node_modules/chai')
+project_root = __dirname + '/../'
+app.use express.static(project_root)
+app.use express.static(project_root + 'node_modules/mocha')
+app.use express.static(project_root + 'node_modules/chai')
 
 app.use express.bodyParser()
 
@@ -21,7 +22,7 @@ dump = (obj) ->
   obj
 
 app.get '/', (req, res) ->
-  res.sendfile "test/mocha.html"
+  res.sendfile(project_root + 'test/mocha.html')
 
 app.all '/test/echo', (req, res) ->
   res.send """
@@ -55,7 +56,7 @@ app.all '/test/error', (req, res) ->
 # GET /compile.js?group=core
 # compiles all "test/core/*.coffee" files and serves as JS
 app.get '/compile.js', (req, res) ->
-  test_dir = "#{__dirname}/#{req.query.group}"
+  test_dir = project_root + "test/#{req.query.group}"
 
   fs.readdir test_dir, (err, files) ->
     if err
