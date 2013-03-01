@@ -2,7 +2,8 @@ fs      = require 'fs'
 coffee  = require 'coffee-script'
 express = require 'express'
 app     = express()
-port    = process.argv[2] || 3000
+
+module.exports = app
 
 app.use express.static(__dirname + '/../')
 app.use express.static('node_modules/mocha')
@@ -66,5 +67,9 @@ app.get '/compile.js', (req, res) ->
       res.set 'content-type', 'application/javascript'
       res.send compiled.join("\n")
 
-app.listen port
-console.log "Listening on port #{port}" if port is 3000
+if process.argv[1] is __filename
+  port = process.argv[2]
+  unless port
+    port = 3000
+    console.log "Listening on port #{port}"
+  app.listen port

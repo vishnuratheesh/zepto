@@ -3,7 +3,8 @@
   , "version": "1.0.0"
   , "homepage": "http://zeptojs.com"
   , "scripts": {
-      "test": "script/test"
+      "test": "coffee make test"
+    , "dist": "coffee make dist"
     , "start": "coffee test/server.coffee"
   }
   , "repository": {
@@ -23,5 +24,6 @@
     , "mocha": "1.8.x"
     , "chai": "1.5.x"
     , "mocha-phantomjs": "2.0.x"
+    , "shelljs": "0.1.x"
   }
 }

@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
 set -e
-
-port=3999
-pidfile=test/server.pid
-PATH="$(npm bin):$PATH"
-
-coffee test/server.coffee $port &
-pid=$!
-
-terminate_test_server() {
-  kill $pid
-}
-trap terminate_test_server EXIT
-
-mocha-phantomjs -R dot "http://localhost:${port}"
+root="$(cd "${0%/*}/.." && pwd)"
+exec -a coffee "${root}/node_modules/.bin/coffee" "${root}/make" test
